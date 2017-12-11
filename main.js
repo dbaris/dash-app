@@ -26,36 +26,46 @@ button.addEventListener("click", function(event){
 
 	// } else 
 	if (isCityName(city)) {
-		// var header = "<h1>Welcome to " + city + "!</h1>";
-		// var data = "<div id='info'><h2>Population: 30,000</h2> <h2>Area: 600 sq miles</h2></div>";
-		// var map = "<div id='map'>loading...</div>";
-		// var footer = "<div><h4>Explore Another City!</h4><input id='city' name='city'></div><button id='enter'>Enter</button>";
-
 		document.getElementById("main-container").style.display = "block";
 		document.getElementById("main-header").innerHTML = "Welcome to " + city + "!";
-		// document.getElementById("main-container").innerHTML = header + data + map + footer;
 
+		// get lat & long here
+		var lat = 43.77109381775651, lng = -79.27734375;
 
-		// initMap();
+		initMap(lat, lng);
 
 		var height = "innerHeight" in window 
                ? window.innerHeight
                : document.documentElement.offsetHeight; 
 
-	    console.log(height);
 	    window.scrollBy(0, height);
 	    document.getElementById("landing-container").style.display = "none";
 
 	} else {
-		console.log('hi');
 		document.getElementById("error").innerHTML = "Sorry! We don't recognize that city.";
 		document.getElementById("error").style.display = "block";
 	}
+	
+});
 
-	
-    
-    
-	
+var button2 = document.getElementById("reload");
+
+button2.addEventListener("click", function(event) {
+	document.getElementById("error2").style.display = "none";
+	var city = document.getElementById("city2").value;
+
+	// never trust user input
+	city = city.replace(/</g, "").replace(/>/g, "").replace(/;/g, "");
+	document.getElementById("city2").value = "";
+
+	if (isCityName(city)) {
+		document.getElementById("main-header").innerHTML = "Welcome to " + city + "!";
+
+	} else {
+		document.getElementById("error2").innerHTML = "Sorry! We don't recognize that city.";
+		document.getElementById("error2").style.display = "block";
+	}
+
 });
 
 // function isZip(city) {
@@ -63,7 +73,7 @@ button.addEventListener("click", function(event){
 // }
 
 function isCityName(city) {
-	return true;
+	return city.length > 0;
 }
 
 
